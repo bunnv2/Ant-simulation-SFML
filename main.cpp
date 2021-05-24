@@ -16,5 +16,5 @@ int main()
         engine.render();
     }
 
-    return 0; // xd
-}//jh
+    return 0;
+}
