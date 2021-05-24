@@ -1,21 +1,19 @@
-#include <SFML/Graphics.hpp>
-#include "definitions.cpp"
+#include "engine.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "SFML works!");
 
-    while (window.isOpen())
+    //init game engine
+    Engine engine;
+
+    //app loop
+    while (engine.running())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+        //Update
+        engine.update();
 
-        window.clear();
-        window.display();
+        //Render
+        engine.render();
     }
 
     return 0;
