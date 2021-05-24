@@ -3,7 +3,6 @@
 		- texture paths
 		- global variables (like screen width/height)
 		etc..
-
 */
 
 #define SCREEN_WIDTH 800
