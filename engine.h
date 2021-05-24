@@ -7,9 +7,6 @@ class Engine
 private:
 
 	//Variables
-	
-	// ...
-
 	//Window
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
