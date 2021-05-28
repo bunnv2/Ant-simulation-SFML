@@ -10,9 +10,9 @@ initState::initState(GameDataRef data) : _data(data)
 
 void initState::Init()
 {
-	this->_data->assets.LoadTexture("initState_Background", INIT_STATE_BACKGROUND_FILEPATH);
+	this->_data->assets.LoadTexture("initBackground", INIT_STATE_BACKGROUND_FILEPATH);
 
-	//_background.setTexture(this->_data->assets.GetTexture("initState_Background")); <--- coœ tu nie dzia³a
+	_background.setTexture(this->_data->assets.GetTexture("initBackground")); 
 }
 
 void initState::HandleInput()
@@ -23,6 +23,11 @@ void initState::HandleInput()
 	{
 		if (sf::Event::Closed == event.type)
 		{
+			this->_data->window.close();
+		}
+		if (event.type == sf::Event::KeyPressed)
+		{
+			if (event.key.code == sf::Keyboard::Escape) 
 			this->_data->window.close();
 		}
 	}
