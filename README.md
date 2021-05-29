@@ -1,5 +1,5 @@
-{
-    logika mrówek, od czego zacząć? (notes)
+
+  logika mrówek, od czego zacząć? (notes) //wojtek
 
     mrówka będzie obiektem klasy ant
     mrówka będzie spritem
@@ -19,4 +19,4 @@
 
 
     --todo--  
-} //wojtek
+
