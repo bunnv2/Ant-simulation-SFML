@@ -4,21 +4,23 @@
 #include "../Engine/engine.h"
 #include "../Engine/gameData/state.h"
 
-class initState : public state
+class menuState : public state
 {
 public:
-	initState(GameDataRef);
+	menuState(GameDataRef);
 
 	void Init();
 	void HandleInput();
 	void Update(float dt);
 	void Draw(float dt);
 
-
 private:
 	GameDataRef _data;
 
+	sf::Text _start;
+	sf::Text _rules;
+	sf::Text _exit;
+
 	sf::Sprite _background;
-	sf::Text _initText;
 
 };

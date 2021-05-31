@@ -2,6 +2,7 @@
 #include <sstream>
 
 #include "initState.h"
+#include "menuState.h"
 #include "../definitions.h"
 
 initState::initState(GameDataRef data) : _data(data)
@@ -10,9 +11,19 @@ initState::initState(GameDataRef data) : _data(data)
 
 void initState::Init()
 {
-	this->_data->assets.LoadTexture("initBackground", INIT_STATE_BACKGROUND_FILEPATH);
+	this->_data->assets.LoadTexture("init_Background", INIT_STATE_BACKGROUND_FILEPATH);
+	this->_data->assets.LoadFont("pixelBit_Font", PIXEL_FONT_FILEPATH);
 
-	_background.setTexture(this->_data->assets.GetTexture("initBackground")); 
+	_background.setTexture(this->_data->assets.GetTexture("init_Background")); 
+	_initText.setFont(this->_data->assets.GetFont("pixelBit_Font"));
+
+	_initText.setString("pREss <spAcE> To conTinuE...");
+	_initText.setCharacterSize(32);
+	_initText.setOrigin(sf::Vector2f(_initText.getGlobalBounds().width / 2, _initText.getGlobalBounds().height / 2));
+	_initText.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 32));
+	_initText.setFillColor(sf::Color::Color(129, 178, 154)); 
+
+	//TODO: MIGOTANIE TEKSTU
 }
 
 void initState::HandleInput()
@@ -28,13 +39,16 @@ void initState::HandleInput()
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Escape) 
-			this->_data->window.close();
+				this->_data->window.close();
+			if (event.key.code == sf::Keyboard::Space)
+				_data->machine.AddState(StateRef(new menuState(this->_data)));
 		}
 	}
 }
 
 void initState::Update(float dt)
 {
+
 }
 
 void initState::Draw(float dt)
@@ -42,6 +56,7 @@ void initState::Draw(float dt)
 	this->_data->window.clear();
 
 	this->_data->window.draw(this->_background);
+	this->_data->window.draw(this->_initText);
 
 	this->_data->window.display();
 }
