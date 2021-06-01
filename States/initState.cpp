@@ -20,10 +20,8 @@ void initState::Init()
 	_initText.setString("pREss <spAcE> To conTinuE...");
 	_initText.setCharacterSize(32);
 	_initText.setOrigin(sf::Vector2f(_initText.getGlobalBounds().width / 2, _initText.getGlobalBounds().height / 2));
-	_initText.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 32));
+	_initText.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - _initText.getCharacterSize()));
 	_initText.setFillColor(sf::Color::Color(129, 178, 154)); 
-
-	//TODO: MIGOTANIE TEKSTU
 }
 
 void initState::HandleInput()
@@ -32,7 +30,7 @@ void initState::HandleInput()
 
 	while (this->_data->window.pollEvent(event))
 	{
-		if (sf::Event::Closed == event.type)
+		if (event.type == sf::Event::Closed)
 		{
 			this->_data->window.close();
 		}
@@ -46,9 +44,24 @@ void initState::HandleInput()
 	}
 }
 
+
+
+
+
 void initState::Update(float dt)
 {
-
+	if (_timer.getElapsedTime().asSeconds() > 0.15)
+	{
+		if ((_timer.getElapsedTime().asSeconds() > 1))
+		{
+			_initText.setFillColor(sf::Color::Color(0, 0, 0, 0));
+			_timer.restart();
+		}
+		else
+		{
+			_initText.setFillColor(sf::Color::Color(129, 178, 154));
+		}
+	}
 }
 
 void initState::Draw(float dt)

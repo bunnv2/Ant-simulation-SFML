@@ -2,6 +2,8 @@
 #include <sstream>
 
 #include "menuState.h"
+//#include "rulesState.h"
+//#include "simulationState.h"
 #include "../definitions.h"
 
 menuState::menuState(GameDataRef data) : _data(data)
@@ -35,9 +37,6 @@ void menuState::Init()
 	_start.setPosition(sf::Vector2f(65, 180));
 	_rules.setPosition(sf::Vector2f(_start.getPosition().x,_start.getPosition().y + _start.getGlobalBounds().height + 20));
 	_exit.setPosition(sf::Vector2f(_rules.getPosition().x + 15, _rules.getPosition().y + _rules.getGlobalBounds().height + 20));
-
-
-
 }
 
 void menuState::HandleInput()
@@ -50,21 +49,79 @@ void menuState::HandleInput()
 		{
 			this->_data->window.close();
 		}
+
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Escape) //window close by pressing ESC
 				this->_data->window.close();
 		}
-		/*if (event.type == sf::Event::MouseEntered) //MOUSE HOVER OVER THE START BUTTON
+
+		if (event.type == sf::Event::MouseMoved) //change color over text with mouse hover
 		{
-			if (sf::Mouse::getPosition().x >= _start.getPosition().x && sf::Mouse::getPosition().x <= _start.getPosition().x + _start.getGlobalBounds().width
-				&& sf::Mouse::getPosition().y >= _start.getPosition().y && sf::Mouse::getPosition().y <= _start.getPosition().y + _start.getGlobalBounds().height)
+
+			int x = sf::Mouse::getPosition(this->_data->window).x;
+			int y = sf::Mouse::getPosition(this->_data->window).y;
+
+			if (x >= _start.getPosition().x && x <= _start.getPosition().x + _start.getGlobalBounds().width
+				&& y >= _start.getPosition().y + 20 && y <= _start.getPosition().y + _start.getCharacterSize())
 			{
-				std::cout << "start";
-				_start.setFillColor(sf::Color::Black);
+				_start.setFillColor(sf::Color::Color(61, 64, 91));
+			}
+			else
+			{
+				_start.setFillColor(sf::Color::Color(244, 241, 222));
 			}
 
-		}*/
+			if (x >= _rules.getPosition().x && x <= _rules.getPosition().x + _rules.getGlobalBounds().width
+				&& y >= _rules.getPosition().y + 20 && y <= _rules.getPosition().y + _rules.getCharacterSize())
+			{
+				_rules.setFillColor(sf::Color::Color(61, 64, 91));
+			}
+			else
+			{
+				_rules.setFillColor(sf::Color::Color(244, 241, 222));
+			}
+
+			if (x >= _exit.getPosition().x && x <= _exit.getPosition().x + _exit.getGlobalBounds().width
+				&& y >= _exit.getPosition().y + 20 && y <= _exit.getPosition().y + _exit.getCharacterSize())
+			{
+				_exit.setFillColor(sf::Color::Color(61, 64, 91));
+			}
+			else
+			{
+				_exit.setFillColor(sf::Color::Color(244, 241, 222));
+			}
+
+		}
+
+		if (event.type == sf::Event::MouseButtonPressed)
+		{
+
+			int x = sf::Mouse::getPosition(this->_data->window).x;
+			int y = sf::Mouse::getPosition(this->_data->window).y;
+
+			if (x >= _exit.getPosition().x && x <= _exit.getPosition().x + _exit.getGlobalBounds().width //closing application by clicking 'EXIT;
+				&& y >= _exit.getPosition().y + 20 && y <= _exit.getPosition().y + _exit.getCharacterSize()) 
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					this->_data->window.close();
+				}
+			}
+			else if (x >= _rules.getPosition().x && x <= _rules.getPosition().x + _rules.getGlobalBounds().width //changing state to rules
+				&& y >= _rules.getPosition().y + 20 && y <= _rules.getPosition().y + _rules.getCharacterSize())
+			{
+				std::cout << "rules\n";
+				// _data->machine.AddState(StateRef(new rulesState(this->_data)));
+			}
+			else if (x >= _start.getPosition().x && x <= _start.getPosition().x + _start.getGlobalBounds().width //changing state to simulate
+				&& y >= _start.getPosition().y + 20 && y <= _start.getPosition().y + _start.getCharacterSize())
+			{
+				std::cout << "simulate\n";
+				// _data->machine.AddState(StateRef(new simulateState(this->_data)));
+			}
+		}
+		
 	}
 }
 
@@ -80,7 +137,6 @@ void menuState::Draw(float dt)
 	this->_data->window.draw(this->_start);
 	this->_data->window.draw(this->_rules);
 	this->_data->window.draw(this->_exit);
-
 
 	this->_data->window.display();
 }

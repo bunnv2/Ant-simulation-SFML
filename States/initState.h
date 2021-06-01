@@ -14,11 +14,12 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 
-
 private:
 	GameDataRef _data;
 
 	sf::Sprite _background;
 	sf::Text _initText;
+
+	sf::Clock _timer;
 
 };
