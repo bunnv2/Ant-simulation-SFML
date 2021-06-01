@@ -112,7 +112,7 @@ void menuState::HandleInput()
 				&& y >= _rules.getPosition().y + 20 && y <= _rules.getPosition().y + _rules.getCharacterSize())
 			{
 				std::cout << "rules\n";
-				// _data->machine.AddState(StateRef(new rulesState(this->_data)));
+				 _data->machine.AddState(StateRef(new rulesState(this->_data)), false);
 			}
 			else if (x >= _start.getPosition().x && x <= _start.getPosition().x + _start.getGlobalBounds().width //changing state to simulate
 				&& y >= _start.getPosition().y + 20 && y <= _start.getPosition().y + _start.getCharacterSize())
