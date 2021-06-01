@@ -2,7 +2,7 @@
 #include <sstream>
 
 #include "menuState.h"
-//#include "rulesState.h"
+#include "rulesState.h"
 //#include "simulationState.h"
 #include "../definitions.h"
 
