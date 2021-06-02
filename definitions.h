@@ -21,4 +21,12 @@
 #define RULES_STATE_ANTS_FILEPATH "res/rulesAnts.png"
 #define RULES_STATE_PHEROMONES_FILEPATH "res/rulesPheromones.png"
 
+#define SIMULATION_STATE_BACKGROUND_FILEPATH "res/SimulationPlannerBackground.png"
+#define SIMULATION_STATE_BUTTON_BACK_FILEPATH "res/SimulationBackButton.png"
+#define SIMULATION_STATE_NEST_FILEPATH "res/SimulationNest.png"
+#define SIMULATION_STATE_OBSTACLE_FILEPATH "res/SimulationObstacle.png"
+#define SIMULATION_STATE_FOOD_FILEPATH "res/SimulationFood.png"
+#define SIMULATION_STATE_ANTS_FILEPATH "res/SimulationAnts.png"
+#define SIMULATION_STATE_BUTTON_HELP_FILEPATH "res/SimulationHelpButton.png"
+
 #define PIXEL_FONT_FILEPATH "res/PixelBit.ttf"

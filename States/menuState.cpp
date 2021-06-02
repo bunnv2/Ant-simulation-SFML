@@ -3,7 +3,7 @@
 
 #include "menuState.h"
 #include "rulesState.h"
-//#include "simulationState.h"
+#include "simulationState.h"
 #include "../definitions.h"
 
 menuState::menuState(GameDataRef data) : _data(data)
@@ -118,7 +118,7 @@ void menuState::HandleInput()
 				&& y >= _start.getPosition().y + 20 && y <= _start.getPosition().y + _start.getCharacterSize())
 			{
 				std::cout << "simulate\n";
-				// _data->machine.AddState(StateRef(new simulateState(this->_data)));
+				 _data->machine.AddState(StateRef(new simulationState(this->_data)), false);
 			}
 		}
 		
