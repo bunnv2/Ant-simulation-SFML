@@ -77,12 +77,12 @@ void simulationState::HandleInput()
 			if (sf::Mouse::getPosition(_data->window).x >= _simulationbackButton.getPosition().x && sf::Mouse::getPosition(_data->window).x <= _simulationbackButton.getPosition().x + _simulationbackButton.getGlobalBounds().width
 				&& sf::Mouse::getPosition(_data->window).y >= _simulationbackButton.getPosition().y && sf::Mouse::getPosition(_data->window).y <= _simulationbackButton.getPosition().y + _simulationbackButton.getGlobalBounds().height)
 			{
-				_simulationbackButton.setPosition(sf::Vector2f(1047.7, 16.65));
+				_simulationbackButton.setPosition(sf::Vector2f(1047.7, 26.65));
 				_simulationbackButton.setScale(sf::Vector2f(1.1, 1.1));
 			}
 			else
 			{
-				_simulationbackButton.setPosition(sf::Vector2f(1054, 20));
+				_simulationbackButton.setPosition(sf::Vector2f(1054, 30));
 				_simulationbackButton.setScale(sf::Vector2f(1, 1));
 			}
 
