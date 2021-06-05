@@ -1,7 +1,9 @@
 #include <iostream>
 #include <sstream>
 
+//#include "Ant.h"
 #include "menuState.h"
+#include "rulesState.h"
 #include "simulationState.h"
 #include "../definitions.h"
 
@@ -17,12 +19,12 @@ void simulationState::Init()
 	this->_data->assets.LoadFont("pixelBit_Font", PIXEL_FONT_FILEPATH);
 
 	this->_data->assets.LoadTexture("simulation_Background", SIMULATION_STATE_BACKGROUND_FILEPATH);
+	this->_data->assets.LoadTexture("simulation_help_Button", SIMULATION_STATE_BUTTON_HELP_FILEPATH);
 	this->_data->assets.LoadTexture("simulation_back_Button", SIMULATION_STATE_BUTTON_BACK_FILEPATH);
 	this->_data->assets.LoadTexture("simulation_Nest", SIMULATION_STATE_NEST_FILEPATH);
 	this->_data->assets.LoadTexture("simulation_Ants", SIMULATION_STATE_ANTS_FILEPATH);
 	this->_data->assets.LoadTexture("simulation_Food", SIMULATION_STATE_FOOD_FILEPATH);
 	this->_data->assets.LoadTexture("simulation_Obstacle", SIMULATION_STATE_OBSTACLE_FILEPATH);
-	this->_data->assets.LoadTexture("simulation_help_Button", SIMULATION_STATE_BUTTON_HELP_FILEPATH);
 
 
 
@@ -43,13 +45,12 @@ void simulationState::Init()
 	_plannerText.setFillColor(sf::Color::Color(244, 241, 222));
 	_plannerText.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, 215));
 
-
 	_simulationbackButton.setPosition(sf::Vector2f(1054, 30));
+	_simulationhelpButton.setPosition(sf::Vector2f(50, 30));
 	_simulationNest.setPosition(sf::Vector2f((SCREEN_WIDTH / 2), 780));
 	_simulationAnts.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 260, 780));
 	_simulationFood.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 130, 780));
 	_simulationObstacle.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) + 130, 780));
-	_simulationhelpButton.setPosition(sf::Vector2f(50, 30));
 
 }
 
@@ -151,6 +152,14 @@ void simulationState::HandleInput()
 		{
 			this->_data->machine.RemoveState();
 		}
+		if (_data->input.IsSpriteClicked(_simulationhelpButton, sf::Mouse::Left, _data->window))
+		{
+			this->_data->machine.AddState(StateRef(new rulesState(this->_data)), false);
+		}
+		if (_data->input.IsSpriteClicked(_startButton, sf::Mouse::Left, _data->window)) //start simulation
+		{
+			state = STATES::START;
+		}
 	}
 }
 
@@ -162,14 +171,23 @@ void simulationState::Draw(float dt)
 {
 	this->_data->window.clear();
 
+	
 	this->_data->window.draw(this->_background);
-	this->_data->window.draw(this->_plannerText);
 	this->_data->window.draw(this->_simulationbackButton);
-	this->_data->window.draw(this->_simulationNest);
-	this->_data->window.draw(this->_simulationAnts);
-	this->_data->window.draw(this->_simulationFood);
-	this->_data->window.draw(this->_simulationObstacle);
 	this->_data->window.draw(this->_simulationhelpButton);
+
+	if (state == STATES::PLANNER)
+	{
+		this->_data->window.draw(this->_plannerText);
+		this->_data->window.draw(this->_simulationNest);
+		this->_data->window.draw(this->_simulationAnts);
+		this->_data->window.draw(this->_simulationFood);
+		this->_data->window.draw(this->_simulationObstacle);
+	}
+	else 
+	{
+		//todo
+	}
 
 	this->_data->window.display();
 }

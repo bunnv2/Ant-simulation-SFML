@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+#include "Ant.h"
 #include "../Engine/engine.h"
 #include "../Engine/gameData/state.h"
 #include "../Engine/gameData/stateMachine.h"
@@ -15,6 +17,11 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 
+	enum class STATES
+	{
+		PLANNER = 0,
+		START
+	}; STATES state = STATES::PLANNER;
 
 private:
 	GameDataRef _data;
@@ -28,4 +35,5 @@ private:
 	sf::Sprite _simulationObstacle;
 	sf::Sprite _simulationFood;
 	sf::Sprite _simulationhelpButton;
+	sf::Sprite _startButton;
 };
