@@ -24,7 +24,8 @@ public:
 	Engine(int width, int height, std::string title);
 private:
 	// Updates run at 60 per second.
-	const float dt = 1.0f / 60.0f;
+	const float dt = 1.0f / 60.0f; 
+
 	sf::Clock _clock;
 
 	GameDataRef _data = std::make_shared<GameData>();
