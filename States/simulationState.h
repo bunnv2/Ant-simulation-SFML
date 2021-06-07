@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "Ant.h"
+//#include "Ant.h"
 #include "../Engine/engine.h"
 #include "../Engine/gameData/state.h"
 #include "../Engine/gameData/stateMachine.h"
