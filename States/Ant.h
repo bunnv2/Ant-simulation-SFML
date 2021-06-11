@@ -13,9 +13,9 @@ public:
 
 	void drawAnts();
 	void spawnAnts(float x, float y);
-	void moveAnts( float dt );
+	void freeRoamAntsMovement( float dt );
 
-	int chooseDirection();
+	void chooseDirection();
 
 private:
 
@@ -24,6 +24,9 @@ private:
 
 	GameDataRef _data;
 
+	sf::Clock timer;
+
 	std::vector<sf::Sprite> antSprites;
+	std::vector<int> directions;
 
 };

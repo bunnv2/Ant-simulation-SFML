@@ -20,62 +20,141 @@ void Ant::spawnAnts(float x, float y)
 {
 
 	sf::Sprite sprite(_data->assets.GetTexture("antTexture"));
-	sprite.setScale(sf::Vector2f(0.1, 0.1));
+	sprite.setScale(sf::Vector2f(0.05, 0.05));
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 	sprite.setPosition(x, y);
 
+	Ant::direction = rand() % +8;
+
+	directions.push_back(Ant::direction);
 	antSprites.push_back(sprite);
 }
 
-void Ant::moveAnts(float dt)
+void Ant::freeRoamAntsMovement(float dt)
 {
 	for (unsigned int i = 0; i < antSprites.size(); i++)
 	{
 		sf::Vector2f position = antSprites.at(i).getPosition();
-		chooseDirection();
-		if (direction == 0) // gora
+		
+		if (directions.at(i) == 0) // gora
 		{
-			for (unsigned int j = 0; j < 300; j++)
-			{
-				antSprites.at(i).move(0.f, -1.f*dt);
-			}
+			antSprites.at(i).setRotation(0);
+			antSprites.at(i).move(0.f, -1.f);
 		}
-		else if (direction == 1) // dol
+		else if (directions.at(i) == 1) // dol
 		{
 			antSprites.at(i).setRotation(180);
-			for (unsigned int j = 0; j < 300; j++)
-			{
-				antSprites.at(i).move(0.f, 1.f * dt);
-			}
+			antSprites.at(i).move(0.f, 1.f);
 		}
-		else if (direction == 2) // prawo
+		else if (directions.at(i) == 2) // prawo
 		{
 			antSprites.at(i).setRotation(90);
-			for (unsigned int j = 0; j < 300; j++)
-			{
-				antSprites.at(i).move(1.f* dt, 0.f);
-			}
+			antSprites.at(i).move(1.f, 0.f);
 
 		}
-		else if (direction == 3) // lewo
+		else if (directions.at(i) == 3) // lewo
 		{
 			antSprites.at(i).setRotation(270);
-			for (unsigned int j = 0; j < 300; j++)
+			antSprites.at(i).move(-1.f, 0.f);
+		}
+		else if (directions.at(i) == 4) // lewo-gora
+		{
+			antSprites.at(i).setRotation(315);
+			antSprites.at(i).move(-1.f, -1.f);
+		}
+		else if (directions.at(i) == 5) // prawo-gora
+		{
+			antSprites.at(i).setRotation(45);
+			antSprites.at(i).move(1.f, -1.f);
+		}
+		else if (directions.at(i) == 6) // lewo-dol
+		{
+			antSprites.at(i).setRotation(225);
+			antSprites.at(i).move(-1.f, 1.f);
+		}
+		else if (directions.at(i) == 7) // prawo-dol
+		{
+			antSprites.at(i).setRotation(135);
+			antSprites.at(i).move(1.f, 1.f);
+		}
+
+		if (antSprites.at(i).getPosition().x == 0) // if ants try to escape - left side
+		{
+			if (directions.at(i) == 3)
 			{
-				antSprites.at(i).move(-1.f*dt, 0.f);
+				directions.at(i) = 2;
+			}
+			else if (directions.at(i) == 4)
+			{
+				directions.at(i) = 5;
+			}
+			else if (directions.at(i) == 6)
+			{
+				directions.at(i) = 7;
+			}
+		}
+		if (antSprites.at(i).getPosition().x == SCREEN_WIDTH) // if ants try to escape - right side
+		{
+			if (directions.at(i) == 2)
+			{
+				directions.at(i) = 3;
+			}
+			else if (directions.at(i) == 5)
+			{
+				directions.at(i) = 4;
+			}
+			else if (directions.at(i) == 7)
+			{
+				directions.at(i) = 6;
+			}
+		}
+		if (antSprites.at(i).getPosition().y == 0) // if ants try to escape - up side
+		{
+			if (directions.at(i) == 0)
+			{
+				directions.at(i) = 1;
+			}
+			else if (directions.at(i) == 4)
+			{
+				directions.at(i) = 6;
+			}
+			else if (directions.at(i) == 5)
+			{
+				directions.at(i) = 7;
+			}
+		}
+		if (antSprites.at(i).getPosition().y == SCREEN_HEIGHT) // if ants try to escape - up side
+		{
+			if (directions.at(i) == 1)
+			{
+				directions.at(i) = 0;
+			}
+			else if (directions.at(i) == 6)
+			{
+				directions.at(i) = 4;
+			}
+			else if (directions.at(i) == 7)
+			{
+				directions.at(i) = 5;
 			}
 		}
 
+
+
+
+		if (timer.getElapsedTime().asSeconds() > 2) // direction change after 2s time
+		{
+			for (int j = 0; j < directions.size(); j++)
+			{
+				Ant::direction = rand() % +8;
+				directions.at(j) = Ant::direction;
+			}
+			timer.restart();
+		}
 	}
+
+	
 }
 
-int Ant::chooseDirection()
-{
-	for (unsigned int i = 0; i < antSprites.size(); i++)
-	{
-		direction = rand() % +4; // 0 up 1 up right 2 right 3 down right 4 down 5 down left 6 left 7 up left 
 
-		return direction;
-	}
-}
 

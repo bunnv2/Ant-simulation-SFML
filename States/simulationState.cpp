@@ -7,9 +7,6 @@
 #include "simulationState.h"
 #include "../definitions.h"
 
-
-
-
 simulationState::simulationState(GameDataRef data) : _data(data)
 {
 }
@@ -190,16 +187,14 @@ void simulationState::HandleInput()
 			{
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					float x = sf::Mouse::getPosition().x;
-					float y = sf::Mouse::getPosition().y;
+					float x = sf::Mouse::getPosition(_data->window).x;
+					float y = sf::Mouse::getPosition(_data->window).y;
 
 					std::cout << x << std::endl << y << std::endl;
 
 					this->ant->spawnAnts(x,y);
 
 					checked = false;
-
-					//tu sie przemiesci wspolrzedne x i y do spawnu mrówek..
 				}
 			}
 
@@ -209,6 +204,7 @@ void simulationState::HandleInput()
 		if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
 		{
 			checked = true;
+			
 		}
 	}
 }
@@ -217,7 +213,7 @@ void simulationState::Update(float dt)
 {
 	if (state == STATES::START)
 	{
-		this->ant->moveAnts(dt);
+		this->ant->freeRoamAntsMovement(dt);
 	}
 }
 
