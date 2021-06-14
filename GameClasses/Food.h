@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <vector>
+
 #include "../definitions.h"
 #include "../Engine/engine.h"
-#include <iostream>
-
+#include "Ant.h"
 
 class Food
 {
@@ -13,13 +14,16 @@ public:
 
 	void drawFood();
 
+	float x, y;
 	void spawnFood(float x, float y);
+	void moveFood(float x, float y, int foodIndex);
 
-
-	~Food();
-
+	friend class Ant;
 private:
 	GameDataRef _data;
+
+	bool isEaten = false;
+
 	std::vector<sf::Sprite> _foodSprite;
 
 };

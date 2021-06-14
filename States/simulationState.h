@@ -9,6 +9,7 @@
 #include "../GameClasses/Ant.h"
 #include "../GameClasses/Nest.h"
 #include "../GameClasses/Obstacle.h"
+#include "../GameClasses/Collision.h"
 
 class simulationState : public state
 {
@@ -20,6 +21,7 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 
+
 	enum class STATES
 	{
 		PLANNER = 0,
@@ -28,7 +30,7 @@ public:
 	
 private:
 	GameDataRef _data;
-
+	
 	bool ant_checked = false;
 	bool obstacle_checked = false;
 	bool nest_checked = false;
@@ -50,10 +52,11 @@ private:
 	sf::Sprite _simulationhelpButton;
 	sf::Sprite _stopButton;
 	sf::Sprite _startButton;
-	
+
 	Ant* ant;
 	Food* food;
 	Obstacle* obstacle;
 	Nest* nest;
+	Collision collision;
 
 };

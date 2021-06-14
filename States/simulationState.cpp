@@ -21,6 +21,7 @@ void simulationState::Init()
 	this->_data->assets.LoadTexture("startButton", SIMULATION_STATE_BUTTON_START_FILEPATH);
 	this->_data->assets.LoadTexture("stopButton", SIMULATION_STATE_BUTTON_STOP_FILEPATH);
 	this->_data->assets.LoadTexture("antTexture", ANT_TEXTURE_FILEPATH);
+	this->_data->assets.LoadTexture("antFoodTexture", ANT_FOOD_TEXTURE_FILEPATH);
 	this->_data->assets.LoadTexture("foodTexture", FOOD_TEXTURE_FILEPATH);
 	this->_data->assets.LoadTexture("obstacleTexture", OBSTACLE_TEXTURE_FILEPATH);
 	this->_data->assets.LoadTexture("nestTexture", NEST_TEXTURE_FILEPATH);
@@ -192,105 +193,117 @@ void simulationState::HandleInput()
 				state = STATES::PLANNER;
 			}
 
-			if (ant_checked == true)
+			if (state == STATES::PLANNER)
+			{
+
+				if (ant_checked == true)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						float x = sf::Mouse::getPosition(_data->window).x;
+						float y = sf::Mouse::getPosition(_data->window).y;
+
+						this->ant->spawnAnts(x, y);
+
+						ant_checked = false;
+					}
+				}
+				if (obstacle_checked == true)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						float x = sf::Mouse::getPosition(_data->window).x;
+						float y = sf::Mouse::getPosition(_data->window).y;
+
+						this->obstacle->spawnObstacle(x, y);
+						obstacle_checked = false;
+					}
+				}
+				if (nest_checked == true)
+				{
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					{
+						float x = sf::Mouse::getPosition(_data->window).x;
+						float y = sf::Mouse::getPosition(_data->window).y;
+
+						this->nest->spawnNest(x, y);
+						for (int i = 0; i < 50; i++)
+						{
+							this->ant->spawnAnts(x, y);
+						}
+						nest_checked = false;
+					}
+				}
+			}
+		}
+
+		if (state == STATES::PLANNER)
+		{
+
+			if (food_checked == true)
 			{
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					float x = sf::Mouse::getPosition(_data->window).x;
 					float y = sf::Mouse::getPosition(_data->window).y;
 
-					this->ant->spawnAnts(x, y);
-
-					ant_checked = false;
+					this->food->spawnFood(x, y);
+					food_checked1 = true;
+					food_checked = false;
 				}
 			}
-			if (obstacle_checked == true)
+
+			if (food_checked1 == true)
+			{
+				if (event.type == sf::Event::MouseMoved)
+				{
+					float x = sf::Mouse::getPosition(_data->window).x;
+					float y = sf::Mouse::getPosition(_data->window).y;
+
+					this->food->spawnFood(x, y);
+
+					food_checked2 = true;
+					food_checked = false;
+				}
+			}
+
+			if (food_checked2 == true)
 			{
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					float x = sf::Mouse::getPosition(_data->window).x;
 					float y = sf::Mouse::getPosition(_data->window).y;
 
-					this->obstacle->spawnObstacle(x, y);
-					obstacle_checked = false;
+					this->food->spawnFood(x, y);
+					food_checked1 = false;
+					food_checked2 = false;
 				}
 			}
-			if (nest_checked == true)
+
+
+
+			if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
 			{
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				ant_checked = true;
+			}
+
+			else if (_data->input.IsSpriteClicked(_simulationFood, sf::Mouse::Left, _data->window)) // food selected
+			{
+				food_checked = true;
+			}
+
+			else if (_data->input.IsSpriteClicked(_simulationObstacle, sf::Mouse::Left, _data->window)) //click on obstacle
+			{
+				obstacle_checked = true;
+			}
+
+			else if (_data->input.IsSpriteClicked(_simulationNest, sf::Mouse::Left, _data->window)) //click on obstacle
+			{
+				if (nestButton_checked == true)
 				{
-					float x = sf::Mouse::getPosition(_data->window).x;
-					float y = sf::Mouse::getPosition(_data->window).y;
-
-					this->nest->spawnNest(x, y);
-					nest_checked = false;
+					nest_checked = true;
+					nestButton_checked = false;
 				}
-			}
-		}
-
-		if (food_checked == true)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
-
-				this->food->spawnFood(x, y);
-				food_checked1 = true;
-				food_checked = false;
-			}
-		}
-
-		if (food_checked1 == true)
-		{
-			if (event.type == sf::Event::MouseMoved)
-			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
-
-				this->food->spawnFood(x, y);
-
-				food_checked2 = true;
-				food_checked = false;
-			}
-		}
-
-		if (food_checked2 == true)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
-
-				this->food->spawnFood(x, y);
-				food_checked1 = false;
-				food_checked2 = false;
-			}
-		}
-
-
-
-		if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
-		{
-			ant_checked = true;
-		}
-
-		else if (_data->input.IsSpriteClicked(_simulationFood, sf::Mouse::Left, _data->window)) // food selected
-		{
-			food_checked = true;
-		}
-
-		else if (_data->input.IsSpriteClicked(_simulationObstacle, sf::Mouse::Left, _data->window)) //click on obstacle
-		{
-			obstacle_checked = true;
-		}
-
-		else if (_data->input.IsSpriteClicked(_simulationNest, sf::Mouse::Left, _data->window)) //click on obstacle
-		{
-			if (nestButton_checked == true)
-			{
-				nest_checked = true;
-				nestButton_checked = false;
 			}
 		}
 	}
@@ -301,6 +314,8 @@ void simulationState::Update(float dt)
 	if (state == STATES::START)
 	{
 		this->ant->freeRoamAntsMovement(dt);
+		this->ant->collisionWithFood(this->food);
+
 	}
 }
 
@@ -338,3 +353,4 @@ void simulationState::Draw(float dt)
 
 	this->_data->window.display();
 }
+

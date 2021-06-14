@@ -7,6 +7,7 @@
 
 #include "../definitions.h"
 #include "../Engine/engine.h"
+#include "Food.h"
 
 
 class Ant {
@@ -17,12 +18,12 @@ public:
 	void drawAnts();
 	void spawnAnts(float x, float y);
 	void freeRoamAntsMovement( float dt );
-	
+	void collisionWithFood(class Food* f);
 
 private:
 
 	int direction;
-	bool isHungry = true;
+	int antIterator = 0;
 
 	GameDataRef _data;
 
@@ -30,5 +31,9 @@ private:
 
 	std::vector<sf::Sprite> antSprites;
 	std::vector<int> directions;
+
+	//std::vector<std::vector<int>> antDirections; !!!!
+
+	std::vector<int> isHungry;
 
 };
