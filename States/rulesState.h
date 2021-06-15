@@ -16,11 +16,26 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 
+	enum class RULES
+	{
+		Rules = 0,
+		Ants,
+		Food,
+		Pheromones,
+		Obstacle,
+		Nest
+	};
+	RULES rules = RULES::Rules;
 
 private:
 	GameDataRef _data;
 
 	sf::Text _rulesText;
+	sf::Text _antText;
+	sf::Text _nestText;
+	sf::Text _foodText;
+	sf::Text _pheromonesText;
+	sf::Text _obstacleText;
 
 	sf::Sprite _background;
 	sf::Sprite _backButton;
