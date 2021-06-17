@@ -1,5 +1,5 @@
 #include "Nest.h"
-#include "../States/simulationState.h"
+#include "../ANTS PROJECT/States/simulationState.h"
 
 
 Nest::Nest(GameDataRef data) : _data(data)
@@ -21,7 +21,7 @@ void Nest::drawNest() {
 
 void Nest::spawnNest(float x, float y)
 {
-	_nestSprite.setTexture(this->_data->assets.GetTexture("nestTexture"));
+	_nestSprite.setTexture(this->_data->assets.GetTexture("nest"));
 	//sf::Sprite sprite(_data->assets.GetTexture("nest"));
 	//sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 	//sprite.setPosition(x, y);
