@@ -1,20 +1,12 @@
-#include "engine.h"
+#include "definitions.h"
+#include "Engine/engine.h"
 
 int main()
 {
+    srand(time(NULL));
 
-    //init game engine
-    Engine engine;
-
-    //app loop
-    while (engine.running())
-    {
-        //Update
-        engine.update();
-
-        //Render
-        engine.render();
-    }
+    //initialize game engine
+    Engine hello_world(SCREEN_WIDTH, SCREEN_HEIGHT, "Ant Colony Simulation");
 
     return 0;
 }

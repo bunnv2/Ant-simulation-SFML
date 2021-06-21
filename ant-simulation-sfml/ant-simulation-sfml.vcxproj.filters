@@ -5,32 +5,102 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Pliki nagłówkowe">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Pliki zasobów">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Pliki źródłowe\Engine">
-      <UniqueIdentifier>{2177067e-b03d-4164-8aa7-28c424a51c67}</UniqueIdentifier>
+      <UniqueIdentifier>{36ad46c6-cf86-4c80-a819-2e6f16c777c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Engine\gameData">
+      <UniqueIdentifier>{dfb6b61f-5f78-4785-88cd-bf478423cd39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\States">
+      <UniqueIdentifier>{e3978433-8f6b-43d5-afe8-7f365975bc15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\GameClasses">
+      <UniqueIdentifier>{d939a917-98a6-41a4-ba40-1a63110e956a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="engine.cpp">
-      <Filter>Pliki źródłowe\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="definitions.h">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\engine.cpp">
+      <Filter>Pliki źródłowe\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\gameData\assetManager.cpp">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\gameData\inputManager.cpp">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\gameData\stateMachine.cpp">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClCompile>
+    <ClCompile Include="States\initState.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\menuState.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\rulesState.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\simulationState.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\Ant.cpp">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\Food.cpp">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\Nest.cpp">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\Obstacle.cpp">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine.h">
+    <ClInclude Include="Engine\engine.h">
       <Filter>Pliki źródłowe\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gameData\inputManager.h">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gameData\assetManager.h">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gameData\stateMachine.h">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gameData\state.h">
+      <Filter>Pliki źródłowe\Engine\gameData</Filter>
+    </ClInclude>
+    <ClInclude Include="States\initState.h">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\menuState.h">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\rulesState.h">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\simulationState.h">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\Ant.h">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\Food.h">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\Nest.h">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\Obstacle.h">
+      <Filter>Pliki źródłowe\GameClasses</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

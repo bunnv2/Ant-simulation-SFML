@@ -146,11 +146,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="definitions.h" />
-    <ClCompile Include="engine.cpp" />
+    <ClCompile Include="Engine\engine.cpp" />
+    <ClCompile Include="Engine\gameData\assetManager.cpp" />
+    <ClCompile Include="Engine\gameData\inputManager.cpp" />
+    <ClCompile Include="Engine\gameData\stateMachine.cpp" />
+    <ClCompile Include="GameClasses\Ant.cpp" />
+    <ClCompile Include="GameClasses\Food.cpp" />
+    <ClCompile Include="GameClasses\Nest.cpp" />
+    <ClCompile Include="GameClasses\Obstacle.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="States\initState.cpp" />
+    <ClCompile Include="States\menuState.cpp" />
+    <ClCompile Include="States\rulesState.cpp" />
+    <ClCompile Include="States\simulationState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine.h" />
+    <ClInclude Include="Engine\engine.h" />
+    <ClInclude Include="Engine\gameData\assetManager.h" />
+    <ClInclude Include="Engine\gameData\inputManager.h" />
+    <ClInclude Include="Engine\gameData\state.h" />
+    <ClInclude Include="Engine\gameData\stateMachine.h" />
+    <ClInclude Include="GameClasses\Ant.h" />
+    <ClInclude Include="GameClasses\Food.h" />
+    <ClInclude Include="GameClasses\Nest.h" />
+    <ClInclude Include="GameClasses\Obstacle.h" />
+    <ClInclude Include="States\initState.h" />
+    <ClInclude Include="States\menuState.h" />
+    <ClInclude Include="States\rulesState.h" />
+    <ClInclude Include="States\simulationState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
