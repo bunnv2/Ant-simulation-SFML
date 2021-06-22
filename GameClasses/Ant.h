@@ -5,8 +5,8 @@
 #include <time.h>
 #include <sstream>
 
-#include "definitions.h"
-#include "../ANTS PROJECT/Engine/engine.h"
+#include "../definitions.h"
+#include "../Engine/engine.h"
 #include "Obstacle.h"
 #include "Food.h"
 #include "Nest.h"
@@ -20,6 +20,11 @@ public:
 	void drawAnts();
 	void spawnAnts(float x, float y);
 	void freeRoamAntsMovement(float dt, class Nest* n);
+	void moveInDirection(int i);
+	void borderCollision(int i);
+	void chooseDirection(int i);
+	
+
 
 	void collisionWithObstacle(class Obstacle* obstacle);
 	void collisionWithFood(class Food* f);

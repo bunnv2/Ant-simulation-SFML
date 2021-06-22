@@ -21,7 +21,7 @@ void initState::Init()
 	_initText.setCharacterSize(32);
 	_initText.setOrigin(sf::Vector2f(_initText.getGlobalBounds().width / 2, _initText.getGlobalBounds().height / 2));
 	_initText.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - _initText.getCharacterSize()));
-	_initText.setFillColor(sf::Color::Color(129, 178, 154)); 
+	_initText.setFillColor(sf::Color::Color(69, 175, 124)); 
 }
 
 void initState::HandleInput()

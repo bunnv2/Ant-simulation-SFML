@@ -1,13 +1,7 @@
-#include <iostream>
-#include <sstream>
-
 #include "menuState.h"
 #include "rulesState.h"
 #include "simulationState.h"
 #include "../definitions.h"
-
-
-
 
 simulationState::simulationState(GameDataRef data) : _data(data)
 {
@@ -35,7 +29,6 @@ void simulationState::Init()
 	this->_data->assets.LoadTexture("antTexture", ANT_TEXTURE_FILEPATH);
 	this->_data->assets.LoadTexture("antFoodTexture", ANT_FOOD_TEXTURE_FILEPATH);
 
-
 	_background.setTexture(this->_data->assets.GetTexture("simulation_Background"));
 	_simulationbackButton.setTexture(this->_data->assets.GetTexture("simulation_back_Button"));
 	_stopButton.setTexture(this->_data->assets.GetTexture("stop_button"));
@@ -45,31 +38,31 @@ void simulationState::Init()
 	_simulationFood.setTexture(this->_data->assets.GetTexture("simulation_Food"));
 	_simulationObstacle.setTexture(this->_data->assets.GetTexture("simulation_Obstacle"));
 	_simulationhelpButton.setTexture(this->_data->assets.GetTexture("simulation_help_Button"));
-	
+
 
 	_plannerText.setFont(this->_data->assets.GetFont("pixelBit_Font"));
 	_plannerText.setString("-- plAnnER --");
 	_plannerText.setCharacterSize(83);
 	_plannerText.setFillColor(sf::Color::Color(69, 175, 124));
-	_plannerText.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) -(_plannerText.getGlobalBounds().width)/2, 0));
+	_plannerText.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - (_plannerText.getGlobalBounds().width) / 2, 0));
 
 	_foodCounterText.setFont(this->_data->assets.GetFont("minecraft_Font"));
 	_foodCounterText.setCharacterSize(50);
 	_foodCounterText.setFillColor(sf::Color::Color(244, 241, 222));
-	
-	
+
+
 
 
 	_simulationbackButton.setPosition(sf::Vector2f(1054, 30));
 	_simulationhelpButton.setPosition(sf::Vector2f(50, 30));
 	_stopButton.setPosition(sf::Vector2f(1000, 800));
-	_startButton.setPosition(sf::Vector2f(600-63, 700));
+	_startButton.setPosition(sf::Vector2f(600 - 63, 700));
 	_simulationNest.setPosition(sf::Vector2f((SCREEN_WIDTH / 2), 780));
 	_simulationAnts.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 260, 780));
 	_simulationFood.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 130, 780));
 	_simulationObstacle.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) + 130, 780));
-	
-	
+
+
 
 	obstacle = new Obstacle(_data);
 	nest = new Nest(_data);
@@ -89,7 +82,6 @@ void simulationState::HandleInput()
 		{
 			this->_data->window.close();
 		}
-
 
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -224,7 +216,7 @@ void simulationState::HandleInput()
 				state = STATES::PLANNER;
 			}
 
-		
+
 			if (state == STATES::PLANNER)
 			{
 
@@ -276,21 +268,18 @@ void simulationState::HandleInput()
 						}
 
 						_foodCounterText.setString(std::to_string(ant->foodCounter));
-						
-						_foodCounterText.setPosition(sf::Vector2f(x , y - 13));
+
+						_foodCounterText.setPosition(sf::Vector2f(x, y - 13));
 
 						nest_checked = false;
 
 					}
-					
+
 				}
 
 			}
-			
+
 		}
-
-		
-
 
 		if (state == STATES::PLANNER)
 		{
@@ -323,7 +312,7 @@ void simulationState::HandleInput()
 					food_checked = false;
 				}
 			}
-		
+
 
 
 			if (food_checked2 == true)
@@ -339,7 +328,7 @@ void simulationState::HandleInput()
 
 				}
 			}
-			
+
 
 
 			if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
@@ -396,9 +385,9 @@ void simulationState::Update(float dt)
 		this->ant->collisionWithObstacle(this->obstacle);
 		this->ant->collisionWithFood(this->food);
 		_foodCounterText.setString(std::to_string(ant->foodCounter));
-		
+
 	}
-	
+
 }
 
 
@@ -413,7 +402,7 @@ void simulationState::Draw(float dt)
 	this->_data->window.draw(this->_background);
 	this->_data->window.draw(this->_simulationbackButton);
 	this->_data->window.draw(this->_simulationhelpButton);
-	
+
 
 
 	if (state == STATES::PLANNER)
@@ -436,8 +425,7 @@ void simulationState::Draw(float dt)
 		{
 			this->_data->window.draw(this->_foodCounterText);
 		}
-
-	}		
+	}
 
 	else
 	{
@@ -449,9 +437,7 @@ void simulationState::Draw(float dt)
 		this->_data->window.draw(this->_simulationhelpButton);
 		this->_data->window.draw(this->_stopButton);
 		this->_data->window.draw(this->_foodCounterText);
-		
 	}
 
-	
 	this->_data->window.display();
 }

@@ -40,142 +40,12 @@ void Ant::freeRoamAntsMovement(float dt, class Nest* n)
 	{
 		if (isHungry.at(i) == 0) // movement if ant does not find any food
 		{
-			if (directions.at(i) == 0) // up
-			{
-				antSprites.at(i).setRotation(0);
-				antSprites.at(i).move(0.f, -1.f);
-			}
-			else if (directions.at(i) == 1) // right-up
-			{
-				antSprites.at(i).setRotation(45);
-				antSprites.at(i).move(1.f, -1.f);
-			}
-			else if (directions.at(i) == 2) // right
-			{
-				antSprites.at(i).setRotation(90);
-				antSprites.at(i).move(1.f, 0.f);
-			}
-			else if (directions.at(i) == 3) // right-down
-			{
-				antSprites.at(i).setRotation(135);
-				antSprites.at(i).move(1.f, 1.f);
-			}
-			else if (directions.at(i) == 4) // down
-			{
-				antSprites.at(i).setRotation(180);
-				antSprites.at(i).move(0.f, 1.f);
-			}
-			else if (directions.at(i) == 5) // left-down
-			{
-				antSprites.at(i).setRotation(225);
-				antSprites.at(i).move(-1.f, 1.f);
-			}
-			else if (directions.at(i) == 6) // left
-			{
-				antSprites.at(i).setRotation(270);
-				antSprites.at(i).move(-1.f, 0.f);
-			}
-
-			else if (directions.at(i) == 7) // left-up
-			{
-				antSprites.at(i).setRotation(315);
-				antSprites.at(i).move(-1.f, -1.f);
-			}
-
-			if (antSprites.at(i).getPosition().x == 0) // if ants try to escape - left side
-			{
-				if (directions.at(i) == 6)
-				{
-					directions.at(i) = 2;
-				}
-				else if (directions.at(i) == 5)
-				{
-					directions.at(i) = 3;
-				}
-				else if (directions.at(i) == 7)
-				{
-					directions.at(i) = 1;
-				}
-			}
-			else if (antSprites.at(i).getPosition().x == SCREEN_WIDTH) // if ants try to escape - right side
-			{
-				if (directions.at(i) == 2)
-				{
-					directions.at(i) = 6;
-				}
-				else if (directions.at(i) == 3)
-				{
-					directions.at(i) = 5;
-				}
-				else if (directions.at(i) == 1)
-				{
-					directions.at(i) = 7;
-				}
-			}
-			else if (antSprites.at(i).getPosition().y == 0) // if ants try to escape - up side
-			{
-				if (directions.at(i) == 0)
-				{
-					directions.at(i) = 4;
-				}
-				else if (directions.at(i) == 7)
-				{
-					directions.at(i) = 5;
-				}
-				else if (directions.at(i) == 1)
-				{
-					directions.at(i) = 3;
-				}
-			}
-			else if (antSprites.at(i).getPosition().y == SCREEN_HEIGHT) // if ants try to escape - up side
-			{
-				if (directions.at(i) == 4)
-				{
-					directions.at(i) = 0;
-				}
-				else if (directions.at(i) == 5)
-				{
-					directions.at(i) = 1;
-				}
-				else if (directions.at(i) == 3)
-				{
-					directions.at(i) = 1;
-				}
-			}
-
-			if (timer.getElapsedTime().asSeconds() > 2) // direction change after 2s time
-			{
-				for (int j = 0; j < antSprites.size(); j++)
-				{
-					int buffor;
-					buffor = rand() % +3; // some randomizing here..
-
-					if (buffor == 1)
-					{
-						directions.at(j) -= 1;
-						if (directions.at(j) == -1)
-						{
-							directions.at(j) = 7;
-						}
-					}
-					else if (buffor == 2)
-					{
-						directions.at(j) += 1;
-						if (directions.at(j) == 8)
-						{
-							directions.at(j) = 0;
-						}
-					}
-					else if (buffor == 0)
-					{
-						directions.at(j) = directions.at(j);
-					}
-
-				}
-				timer.restart();
-			}
+			moveInDirection(i);
+			borderCollision(i);
+			chooseDirection(i);
 		}
-		else if (isHungry.at(i) == 1) 
+
+		else if (isHungry.at(i) == 1) //if ant is fed
 		{
 			sf::Rect<float> rect1 = antSprites.at(i).getGlobalBounds();
 			sf::Rect<float> rect2 = n->_nestSprite.getGlobalBounds();
@@ -227,148 +97,122 @@ void Ant::freeRoamAntsMovement(float dt, class Nest* n)
 					}
 
 			}
-					if (directions.at(i) == 0) // up
-					{
-						antSprites.at(i).setRotation(0);
-						antSprites.at(i).move(0.f, -1.f);
-					}
-					else if (directions.at(i) == 1) // right-up
-					{
-						antSprites.at(i).setRotation(45);
-						antSprites.at(i).move(1.f, -1.f);
-					}
-					else if (directions.at(i) == 2) // right
-					{
-						antSprites.at(i).setRotation(90);
-						antSprites.at(i).move(1.f, 0.f);
-					}
-					else if (directions.at(i) == 3) // right-down
-					{
-						antSprites.at(i).setRotation(135);
-						antSprites.at(i).move(1.f, 1.f);
-					}
-					else if (directions.at(i) == 4) // down
-					{
-						antSprites.at(i).setRotation(180);
-						antSprites.at(i).move(0.f, 1.f);
-					}
-					else if (directions.at(i) == 5) // left-down
-					{
-						antSprites.at(i).setRotation(225);
-						antSprites.at(i).move(-1.f, 1.f);
-					}
-					else if (directions.at(i) == 6) // left
-					{
-						antSprites.at(i).setRotation(270);
-						antSprites.at(i).move(-1.f, 0.f);
-					}
 
-					else if (directions.at(i) == 7) // left-up
-					{
-						antSprites.at(i).setRotation(315);
-						antSprites.at(i).move(-1.f, -1.f);
-					}
-
-					if (antSprites.at(i).getPosition().x == 0) // if ants try to escape - left side
-					{
-						if (directions.at(i) == 6)
-						{
-							directions.at(i) = 2;
-						}
-						else if (directions.at(i) == 5)
-						{
-							directions.at(i) = 3;
-						}
-						else if (directions.at(i) == 7)
-						{
-							directions.at(i) = 1;
-						}
-					}
-					else if (antSprites.at(i).getPosition().x == SCREEN_WIDTH) // if ants try to escape - right side
-					{
-						if (directions.at(i) == 2)
-						{
-							directions.at(i) = 6;
-						}
-						else if (directions.at(i) == 3)
-						{
-							directions.at(i) = 5;
-						}
-						else if (directions.at(i) == 1)
-						{
-							directions.at(i) = 7;
-						}
-					}
-					else if (antSprites.at(i).getPosition().y == 0) // if ants try to escape - up side
-					{
-						if (directions.at(i) == 0)
-						{
-							directions.at(i) = 4;
-						}
-						else if (directions.at(i) == 7)
-						{
-							directions.at(i) = 5;
-						}
-						else if (directions.at(i) == 1)
-						{
-							directions.at(i) = 3;
-						}
-					}
-					else if (antSprites.at(i).getPosition().y == SCREEN_HEIGHT) // if ants try to escape - up side
-					{
-						if (directions.at(i) == 4)
-						{
-							directions.at(i) = 0;
-						}
-						else if (directions.at(i) == 5)
-						{
-							directions.at(i) = 1;
-						}
-						else if (directions.at(i) == 3)
-						{
-							directions.at(i) = 1;
-						}
-					}
-
-					if (timer.getElapsedTime().asSeconds() > 2) // direction change after 2s time
-					{
-						for (int j = 0; j < antSprites.size(); j++)
-						{
-							int buffor;
-							buffor = rand() % +3; // some randomizing here..
-
-							if (buffor == 1)
-							{
-								directions.at(j) -= 1;
-								if (directions.at(j) == -1)
-								{
-									directions.at(j) = 7;
-								}
-							}
-							else if (buffor == 2)
-							{
-								directions.at(j) += 1;
-								if (directions.at(j) == 8)
-								{
-									directions.at(j) = 0;
-								}
-							}
-							else if (buffor == 0)
-							{
-								directions.at(j) = directions.at(j);
-							}
-						}
-						timer.restart();
-			
-			}
-
+			moveInDirection(i);
+			borderCollision(i);
+			chooseDirection(i);
 		}
-
 	}
 }
 
+void Ant::moveInDirection(int i)
+{
+	if (directions.at(i) == 0) // up
+	{
+		antSprites.at(i).setRotation(0);
+		antSprites.at(i).move(0.f, -1.f);
+	}
+	else if (directions.at(i) == 1) // right-up
+	{
+		antSprites.at(i).setRotation(45);
+		antSprites.at(i).move(1.f, -1.f);
+	}
+	else if (directions.at(i) == 2) // right
+	{
+		antSprites.at(i).setRotation(90);
+		antSprites.at(i).move(1.f, 0.f);
+	}
+	else if (directions.at(i) == 3) // right-down
+	{
+		antSprites.at(i).setRotation(135);
+		antSprites.at(i).move(1.f, 1.f);
+	}
+	else if (directions.at(i) == 4) // down
+	{
+		antSprites.at(i).setRotation(180);
+		antSprites.at(i).move(0.f, 1.f);
+	}
+	else if (directions.at(i) == 5) // left-down
+	{
+		antSprites.at(i).setRotation(225);
+		antSprites.at(i).move(-1.f, 1.f);
+	}
+	else if (directions.at(i) == 6) // left
+	{
+		antSprites.at(i).setRotation(270);
+		antSprites.at(i).move(-1.f, 0.f);
+	}
 
+	else if (directions.at(i) == 7) // left-up
+	{
+		antSprites.at(i).setRotation(315);
+		antSprites.at(i).move(-1.f, -1.f);
+	}
+}
 
+void Ant::borderCollision(int i)
+{
+	if (antSprites.at(i).getPosition().x == 0) // if ants try to escape - left side
+	{
+		if (directions.at(i) == 6)
+		{
+			directions.at(i) = 2;
+		}
+		else if (directions.at(i) == 5)
+		{
+			directions.at(i) = 3;
+		}
+		else if (directions.at(i) == 7)
+		{
+			directions.at(i) = 1;
+		}
+	}
+	else if (antSprites.at(i).getPosition().x == SCREEN_WIDTH) // if ants try to escape - right side
+	{
+		if (directions.at(i) == 2)
+		{
+			directions.at(i) = 6;
+		}
+		else if (directions.at(i) == 3)
+		{
+			directions.at(i) = 5;
+		}
+		else if (directions.at(i) == 1)
+		{
+			directions.at(i) = 7;
+		}
+	}
+	else if (antSprites.at(i).getPosition().y == 0) // if ants try to escape - up side
+	{
+		if (directions.at(i) == 0)
+		{
+			directions.at(i) = 4;
+		}
+		else if (directions.at(i) == 7)
+		{
+			directions.at(i) = 5;
+		}
+		else if (directions.at(i) == 1)
+		{
+			directions.at(i) = 3;
+		}
+	}
+	else if (antSprites.at(i).getPosition().y == SCREEN_HEIGHT) // if ants try to escape - up side
+	{
+		if (directions.at(i) == 4)
+		{
+			directions.at(i) = 0;
+		}
+		else if (directions.at(i) == 5)
+		{
+			directions.at(i) = 1;
+		}
+		else if (directions.at(i) == 3)
+		{
+			directions.at(i) = 1;
+		}
+	}
+}
 
 void Ant::collisionWithObstacle(Obstacle* obstacle)
 {
@@ -428,10 +272,6 @@ void Ant::collisionWithObstacle(Obstacle* obstacle)
 	}
 }
 
-
-
-
-
 void Ant::collisionWithFood(Food* f)
 {
 	for (unsigned int i = 0; i < antSprites.size(); i++)
@@ -453,6 +293,40 @@ void Ant::collisionWithFood(Food* f)
 			}
 		}
 		}
+	}
+}
+
+void Ant::chooseDirection(int i)
+{
+	if (timer.getElapsedTime().asSeconds() > 2) // direction change after 2s time
+	{
+		for (int j = 0; j < antSprites.size(); j++)
+		{
+			int buffor;
+			buffor = rand() % +3; // some randomizing here..
+
+			if (buffor == 1)
+			{
+				directions.at(j) -= 1;
+				if (directions.at(j) == -1)
+				{
+					directions.at(j) = 7;
+				}
+			}
+			else if (buffor == 2)
+			{
+				directions.at(j) += 1;
+				if (directions.at(j) == 8)
+				{
+					directions.at(j) = 0;
+				}
+			}
+			else if (buffor == 0)
+			{
+				directions.at(j) = directions.at(j);
+			}
+		}
+		timer.restart();
 	}
 }
 

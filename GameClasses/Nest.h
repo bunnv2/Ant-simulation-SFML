@@ -1,8 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "definitions.h"
-#include "../ANTS PROJECT/Engine/engine.h"
+
+#include "../definitions.h"
+#include "../Engine/engine.h"
+#include "Ant.h"
 
 
 class Nest
@@ -15,9 +17,10 @@ public:
 	void spawnNest(float x, float y);
 
 	~Nest();
-
+	
+	friend class Ant;
 private:
 	GameDataRef _data;
-	//std::vector<sf::Sprite> _nestSprite;
+
 	sf::Sprite _nestSprite;
 };
