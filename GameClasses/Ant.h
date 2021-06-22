@@ -9,6 +9,7 @@
 #include "../ANTS PROJECT/Engine/engine.h"
 #include "Obstacle.h"
 #include "Food.h"
+#include "Nest.h"
 
 
 class Ant {
@@ -18,29 +19,25 @@ public:
 
 	void drawAnts();
 	void spawnAnts(float x, float y);
-	void freeRoamAntsMovement(float dt);
+	void freeRoamAntsMovement(float dt, class Nest* n);
 
 	void collisionWithObstacle(class Obstacle* obstacle);
 	void collisionWithFood(class Food* f);
 
-
+	int foodCounter = 0;
 
 private:
 
 	int direction;
-	int antIterator = 0;
-
 
 	GameDataRef _data;
 
 	sf::Clock timer;
+	sf::Clock foodtimer;
 
 	std::vector<sf::Sprite> antSprites;
 	std::vector<int> directions;
 
-	//std::vector<std::vector<int>> antDirections; !!!!
-
 	std::vector<int> isHungry;
-
 
 };

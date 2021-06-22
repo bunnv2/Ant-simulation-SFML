@@ -21,11 +21,11 @@ public:
 		Rules = 0,
 		Ants,
 		Food,
-		Pheromones,
 		Obstacle,
 		Nest
 	};
 	RULES rules = RULES::Rules;
+
 
 private:
 	GameDataRef _data;
@@ -34,7 +34,6 @@ private:
 	sf::Text _antText;
 	sf::Text _nestText;
 	sf::Text _foodText;
-	sf::Text _pheromonesText;
 	sf::Text _obstacleText;
 
 	sf::Sprite _background;
@@ -42,6 +41,5 @@ private:
 	sf::Sprite _rulesNest;
 	sf::Sprite _rulesAnts;
 	sf::Sprite _rulesObstacle;
-	sf::Sprite _rulesPheromones;
 	sf::Sprite _rulesFood;
 };

@@ -17,6 +17,7 @@ void simulationState::Init()
 {
 
 	this->_data->assets.LoadFont("pixelBit_Font", PIXEL_FONT_FILEPATH);
+	this->_data->assets.LoadFont("minecraft_Font", MINECRAFT_FONT_FILEPATH);
 
 
 	this->_data->assets.LoadTexture("simulation_Background", INIT_STATE_BACKGROUND_FILEPATH);
@@ -52,18 +53,23 @@ void simulationState::Init()
 	_plannerText.setFillColor(sf::Color::Color(69, 175, 124));
 	_plannerText.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) -(_plannerText.getGlobalBounds().width)/2, 0));
 
+	_foodCounterText.setFont(this->_data->assets.GetFont("minecraft_Font"));
+	_foodCounterText.setCharacterSize(50);
+	_foodCounterText.setFillColor(sf::Color::Color(244, 241, 222));
+	
+	
 
 
 	_simulationbackButton.setPosition(sf::Vector2f(1054, 30));
 	_simulationhelpButton.setPosition(sf::Vector2f(50, 30));
-	_stopButton.setPosition(sf::Vector2f(600-63, 800));
+	_stopButton.setPosition(sf::Vector2f(1000, 800));
 	_startButton.setPosition(sf::Vector2f(600-63, 700));
 	_simulationNest.setPosition(sf::Vector2f((SCREEN_WIDTH / 2), 780));
 	_simulationAnts.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 260, 780));
 	_simulationFood.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) - 130, 780));
 	_simulationObstacle.setPosition(sf::Vector2f((SCREEN_WIDTH / 2) + 130, 780));
 	
-
+	
 
 	obstacle = new Obstacle(_data);
 	nest = new Nest(_data);
@@ -75,6 +81,7 @@ void simulationState::HandleInput()
 {
 	sf::Event event;
 
+	_foodCounterText.setOrigin(_foodCounterText.getGlobalBounds().width / 2, _foodCounterText.getGlobalBounds().height / 2);
 
 	while (this->_data->window.pollEvent(event))
 	{
@@ -170,12 +177,12 @@ void simulationState::HandleInput()
 			if (sf::Mouse::getPosition(_data->window).x >= _stopButton.getPosition().x && sf::Mouse::getPosition(_data->window).x <= _stopButton.getPosition().x + _stopButton.getGlobalBounds().width
 				&& sf::Mouse::getPosition(_data->window).y >= _stopButton.getPosition().y && sf::Mouse::getPosition(_data->window).y <= _stopButton.getPosition().y + _stopButton.getGlobalBounds().height)
 			{
-				_stopButton.setPosition(sf::Vector2f(600 - 63 - 6.3, 800 - 3.35));
+				_stopButton.setPosition(sf::Vector2f(1000 - 6.3, 800 - 3.35));
 				_stopButton.setScale(sf::Vector2f(1.1, 1.1));
 			}
 			else
 			{
-				_stopButton.setPosition(sf::Vector2f(600 - 63, 800));
+				_stopButton.setPosition(sf::Vector2f(1000, 800));
 				_stopButton.setScale(sf::Vector2f(1, 1));
 			}
 			if (sf::Mouse::getPosition(_data->window).x >= _startButton.getPosition().x && sf::Mouse::getPosition(_data->window).x <= _startButton.getPosition().x + _startButton.getGlobalBounds().width
@@ -218,8 +225,6 @@ void simulationState::HandleInput()
 			}
 
 		
-
-
 			if (state == STATES::PLANNER)
 			{
 
@@ -265,108 +270,118 @@ void simulationState::HandleInput()
 
 						this->nest->spawnNest(x, y);
 
-						for (int i = 0; i < 50; i++)
+						for (int i = 0; i < 90; i++)
 						{
 							this->ant->spawnAnts(x, y);
 						}
 
+						_foodCounterText.setString(std::to_string(ant->foodCounter));
+						
+						_foodCounterText.setPosition(sf::Vector2f(x , y - 13));
+
 						nest_checked = false;
 
 					}
+					
 				}
+
 			}
+			
 		}
+
+		
 
 
 		if (state == STATES::PLANNER)
 		{
 
-		//reaction after clicking the food button 
-		if (food_checked == true)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			//reaction after clicking the food button 
+			if (food_checked == true)
 			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					float x = sf::Mouse::getPosition(_data->window).x;
+					float y = sf::Mouse::getPosition(_data->window).y;
 
-				this->food->spawnFood(x, y);
-				food_checked1 = true;
-				food_checked = false;
+					this->food->spawnFood(x, y);
+					food_checked1 = true;
+					food_checked = false;
 
+				}
 			}
-		}
 
 
-		if (food_checked1 == true) {
-			if (event.type == sf::Event::MouseMoved)
-			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
+			if (food_checked1 == true) {
+				if (event.type == sf::Event::MouseMoved)
+				{
+					float x = sf::Mouse::getPosition(_data->window).x;
+					float y = sf::Mouse::getPosition(_data->window).y;
 
-				this->food->spawnFood(x, y);
+					this->food->spawnFood(x, y);
 
-				food_checked2 = true;
-				food_checked = false;
+					food_checked2 = true;
+					food_checked = false;
+				}
 			}
-		}
 		
 
 
-		if (food_checked2 == true)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if (food_checked2 == true)
 			{
-				float x = sf::Mouse::getPosition(_data->window).x;
-				float y = sf::Mouse::getPosition(_data->window).y;
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					float x = sf::Mouse::getPosition(_data->window).x;
+					float y = sf::Mouse::getPosition(_data->window).y;
 
-				this->food->spawnFood(x, y);
-				food_checked1 = false;
-				food_checked2 = false;
+					this->food->spawnFood(x, y);
+					food_checked1 = false;
+					food_checked2 = false;
 
+				}
 			}
-		}
+			
 
 
-
-		if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
-		{
-			ant_checked = true;
-		}
-
-
-
-		//reaction after clicking the obstacle button 
-		if (_data->input.IsSpriteClicked(_simulationObstacle, sf::Mouse::Left, _data->window)) //click on obstacle
-		{
-			obstacle_checked = true;
-
-		}
-
-
-
-		//reaction after clicking the nest button 
-		if (_data->input.IsSpriteClicked(_simulationNest, sf::Mouse::Left, _data->window)) //click on obstacle
-		{
-			if (nestButton_checked == true)
+			if (_data->input.IsSpriteClicked(_simulationAnts, sf::Mouse::Left, _data->window)) // ants selected
 			{
-				nest_checked = true;
-				nestButton_checked = false;
+				ant_checked = true;
 			}
 
 
-		}
+
+			//reaction after clicking the obstacle button 
+			if (_data->input.IsSpriteClicked(_simulationObstacle, sf::Mouse::Left, _data->window)) //click on obstacle
+			{
+				obstacle_checked = true;
+
+			}
 
 
-		//reaction after clicking the food button 
-		if (_data->input.IsSpriteClicked(_simulationFood, sf::Mouse::Left, _data->window)) //click on obstacle
-		{
-			food_checked = true;
+
+			//reaction after clicking the nest button 
+			if (_data->input.IsSpriteClicked(_simulationNest, sf::Mouse::Left, _data->window)) //click on obstacle
+			{
+				if (nestButton_checked == true)
+				{
+					nest_checked = true;
+					nestButton_checked = false;
+				}
+
+
+			}
+
+
+			//reaction after clicking the food button 
+			if (_data->input.IsSpriteClicked(_simulationFood, sf::Mouse::Left, _data->window)) //click on obstacle
+			{
+				food_checked = true;
+
+			}
 
 		}
 
 	}
 
-}
 }
 
 
@@ -377,10 +392,13 @@ void simulationState::Update(float dt)
 {
 	if (state == STATES::START)
 	{
-		this->ant->freeRoamAntsMovement(dt);
+		this->ant->freeRoamAntsMovement(dt, this->nest);
 		this->ant->collisionWithObstacle(this->obstacle);
 		this->ant->collisionWithFood(this->food);
+		_foodCounterText.setString(std::to_string(ant->foodCounter));
+		
 	}
+	
 }
 
 
@@ -395,23 +413,30 @@ void simulationState::Draw(float dt)
 	this->_data->window.draw(this->_background);
 	this->_data->window.draw(this->_simulationbackButton);
 	this->_data->window.draw(this->_simulationhelpButton);
-
+	
 
 
 	if (state == STATES::PLANNER)
 	{
+
 		this->ant->drawAnts();
 		this->obstacle->drawObstacle();
 		this->nest->drawNest();
 		this->food->drawFood();
 		this->_data->window.draw(this->_simulationbackButton);
+		this->_data->window.draw(this->_simulationhelpButton);
 		this->_data->window.draw(this->_plannerText);
 		this->_data->window.draw(this->_simulationNest);
 		this->_data->window.draw(this->_simulationAnts);
 		this->_data->window.draw(this->_simulationFood);
 		this->_data->window.draw(this->_simulationObstacle);
 		this->_data->window.draw(this->_startButton);
-		
+
+		if (ant->foodCounter > 0)
+		{
+			this->_data->window.draw(this->_foodCounterText);
+		}
+
 	}		
 
 	else
@@ -420,7 +445,10 @@ void simulationState::Draw(float dt)
 		this->obstacle->drawObstacle();
 		this->nest->drawNest();
 		this->food->drawFood();
+		this->_data->window.draw(this->_simulationbackButton);
+		this->_data->window.draw(this->_simulationhelpButton);
 		this->_data->window.draw(this->_stopButton);
+		this->_data->window.draw(this->_foodCounterText);
 		
 	}
 

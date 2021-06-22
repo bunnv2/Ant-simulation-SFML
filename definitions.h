@@ -14,6 +14,7 @@
 
 //FONTS
 #define PIXEL_FONT_FILEPATH "res/PixelBit.ttf"
+#define MINECRAFT_FONT_FILEPATH "res/Minecraft.ttf"
 
 //BACKGROUNS
 #define INIT_STATE_BACKGROUND_FILEPATH "res/initStateBackground.png"
@@ -26,7 +27,6 @@
 #define RULES_STATE_OBSTACLE_FILEPATH "res/rulesObstacle.png"
 #define RULES_STATE_FOOD_FILEPATH "res/rulesFood.png"
 #define RULES_STATE_ANTS_FILEPATH "res/rulesAnts.png"
-#define RULES_STATE_PHEROMONES_FILEPATH "res/rulesPheromones.png"
 
 //BUTTONS IN SIMULATION STATE
 #define SIMULATION_STATE_BUTTON_BACK_FILEPATH "res/SimulationBackButton.png"

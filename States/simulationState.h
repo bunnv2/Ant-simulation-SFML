@@ -39,6 +39,7 @@ private:
 	bool ant_checked = false;
 
 	sf::Text _plannerText;
+	sf::Text _foodCounterText;
 
 	sf::Sprite _background;
 	sf::Sprite _simulationbackButton;
